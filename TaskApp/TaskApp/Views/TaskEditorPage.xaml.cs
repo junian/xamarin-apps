@@ -9,14 +9,14 @@ using TaskApp.ViewModels;
 
 namespace TaskApp.Views
 {
-    public partial class NewItemPage : ContentPage
+    public partial class TaskEditorPage : ContentPage
     {
         public TaskItem Item { get; set; }
 
-        public NewItemPage()
+        public TaskEditorPage()
         {
             InitializeComponent();
-            BindingContext = new NewItemViewModel();
+            BindingContext = new TaskEditorViewModel();
         }
     }
 }

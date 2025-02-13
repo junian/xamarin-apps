@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace TaskApp.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public class TaskEditorViewModel : BaseViewModel
     {
-        public NewItemViewModel()
+        public TaskEditorViewModel()
         {
             Title = "Add New Task";
             SaveCommand = new Command(OnSave, ValidateSave);

@@ -11,8 +11,8 @@ namespace TaskApp
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(TaskDetailPage), typeof(TaskDetailPage));
+            Routing.RegisterRoute(nameof(TaskEditorPage), typeof(TaskEditorPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

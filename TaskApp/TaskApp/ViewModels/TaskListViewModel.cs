@@ -10,7 +10,7 @@ using TaskApp.Views;
 
 namespace TaskApp.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class TaskListViewModel : BaseViewModel
     {
         private TaskItem _selectedItem;
 
@@ -19,9 +19,9 @@ namespace TaskApp.ViewModels
         public Command AddItemCommand { get;  }
         public Command<TaskItem> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public TaskListViewModel()
         {
-            Title = "Browse";
+            Title = "Task Manager";
             Items = new ObservableCollection<TaskItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -71,7 +71,7 @@ namespace TaskApp.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            await Shell.Current.GoToAsync(nameof(TaskEditorPage));
         }
 
         async void OnItemSelected(TaskItem item)
@@ -80,7 +80,7 @@ namespace TaskApp.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(TaskDetailPage)}?{nameof(TaskDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }

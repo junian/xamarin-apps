@@ -13,15 +13,15 @@ using TaskApp.ViewModels;
 
 namespace TaskApp.Views
 {
-    public partial class ItemsPage : ContentPage
+    public partial class TaskListPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        TaskListViewModel _viewModel;
 
-        public ItemsPage()
+        public TaskListPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new TaskListViewModel();
         }
 
         protected override void OnAppearing()
