@@ -12,7 +12,7 @@ namespace TaskApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<TaskItem> DataStore => DependencyService.Get<IDataStore<TaskItem>>();
 
         bool isBusy = false;
         public bool IsBusy

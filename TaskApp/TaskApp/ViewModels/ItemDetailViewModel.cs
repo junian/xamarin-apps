@@ -45,7 +45,7 @@ namespace TaskApp.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
+                Text = item.Title;
                 Description = item.Description;
             }
             catch (Exception)

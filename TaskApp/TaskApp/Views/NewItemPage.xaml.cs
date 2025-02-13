@@ -11,7 +11,7 @@ namespace TaskApp.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public TaskItem Item { get; set; }
 
         public NewItemPage()
         {

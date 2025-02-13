@@ -12,20 +12,20 @@ namespace TaskApp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private TaskItem _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<TaskItem> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get;  }
-        public Command<Item> ItemTapped { get; }
+        public Command<TaskItem> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<TaskItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<TaskItem>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -59,7 +59,7 @@ namespace TaskApp.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public TaskItem SelectedItem
         {
             get => _selectedItem;
             set
@@ -74,7 +74,7 @@ namespace TaskApp.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(TaskItem item)
         {
             if (item == null)
                 return;
