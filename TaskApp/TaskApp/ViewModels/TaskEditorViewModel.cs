@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using TaskApp.Models;
 using Xamarin.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TaskApp.ViewModels
 {
+    [QueryProperty(nameof(TaskId), nameof(TaskId))]
     public class TaskEditorViewModel : BaseViewModel
     {
         public TaskEditorViewModel()
@@ -22,6 +25,20 @@ namespace TaskApp.ViewModels
         {
             return !String.IsNullOrWhiteSpace(_taskTitle)
                 && !String.IsNullOrWhiteSpace(_taskDescription);
+        }
+
+        private string _taskId;
+        public string TaskId
+        {
+            get
+            {
+                return _taskId;
+            }
+            set
+            {
+                _taskId = value;
+                LoadTaskAsync(value);
+            }
         }
 
         private string _taskTitle;
@@ -52,6 +69,24 @@ namespace TaskApp.ViewModels
             set => SetProperty(ref _isCompleted, value);
         }
 
+        public async void LoadTaskAsync(string taskId)
+        {
+            try
+            {
+                Debug.WriteLine(taskId);
+                var item = await DataStore.GetTaskAsync(taskId);
+                TaskTitle = item.Title;
+                TaskDescription = item.Description;
+                TaskDueDate = item.DueDate;
+                TaskIsCompleted = item.IsCompleted;
+                Title = "Edit Task";
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Failed to Load Item");
+            }
+        }
+
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
@@ -63,16 +98,21 @@ namespace TaskApp.ViewModels
 
         private async void OnSave()
         {
-            var newItem = new TaskItem()
+            var isEditMode = !string.IsNullOrWhiteSpace(TaskId);
+
+            var taskItem = new TaskItem()
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = isEditMode ? TaskId : Guid.NewGuid().ToString(),
                 Title = TaskTitle,
                 Description = TaskDescription,
                 DueDate = TaskDueDate,
                 IsCompleted = TaskIsCompleted,
             };
-            
-            await DataStore.AddTaskAsync(newItem);
+
+            if (isEditMode)
+                await DataStore.UpdateTaskAsync(taskItem);
+            else
+                await DataStore.AddTaskAsync(taskItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

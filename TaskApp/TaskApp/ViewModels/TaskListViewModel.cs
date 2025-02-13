@@ -80,7 +80,7 @@ namespace TaskApp.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(TaskDetailPage)}?{nameof(TaskDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(TaskEditorPage)}?{nameof(TaskEditorViewModel.TaskId)}={item.Id}");
         }
     }
 }

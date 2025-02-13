@@ -77,7 +77,7 @@ namespace TaskApp.Services
             try
             {
                 // Find the task item by ID
-                return await _database.Table<TaskItem>().FirstOrDefaultAsync(t => t.Id.ToString() == id);
+                return await _database.Table<TaskItem>().FirstOrDefaultAsync(t => t.Id == id);
             }
             catch (Exception)
             {
