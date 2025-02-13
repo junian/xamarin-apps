@@ -9,9 +9,6 @@ namespace TaskApp.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
-
         public NewItemViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
@@ -22,20 +19,36 @@ namespace TaskApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(_taskTitle)
+                && !String.IsNullOrWhiteSpace(_taskDescription);
         }
 
-        public string Text
+        private string _taskTitle;
+        public string TaskTitle
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => _taskTitle;
+            set => SetProperty(ref _taskTitle, value);
         }
 
-        public string Description
+        private string _taskDescription;
+        public string TaskDescription
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _taskDescription;
+            set => SetProperty(ref _taskDescription, value);
+        }
+
+        private DateTime? _dueDate = null;
+        public DateTime? DueDate
+        {
+            get => _dueDate;
+            set => SetProperty(ref _dueDate, value);
+        }
+
+        private bool _isCompleted = false;
+        public bool IsCompleted
+        {
+            get => _isCompleted;
+            set => SetProperty(ref _isCompleted, value);
         }
 
         public Command SaveCommand { get; }
@@ -49,11 +62,13 @@ namespace TaskApp.ViewModels
 
         private async void OnSave()
         {
-            TaskItem newItem = new TaskItem()
+            var newItem = new TaskItem()
             {
                 Id = Guid.NewGuid().ToString(),
-                Title = Text,
-                Description = Description
+                Title = TaskTitle,
+                Description = TaskDescription,
+                DueDate = DueDate,
+                IsCompleted = IsCompleted,
             };
             
             await DataStore.AddItemAsync(newItem);
