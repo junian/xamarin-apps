@@ -11,6 +11,7 @@ namespace TaskApp.ViewModels
     {
         public NewItemViewModel()
         {
+            Title = "Add New Task";
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged += 
@@ -38,14 +39,14 @@ namespace TaskApp.ViewModels
         }
 
         private DateTime? _dueDate = null;
-        public DateTime? DueDate
+        public DateTime? TaskDueDate
         {
             get => _dueDate;
             set => SetProperty(ref _dueDate, value);
         }
 
         private bool _isCompleted = false;
-        public bool IsCompleted
+        public bool TaskIsCompleted
         {
             get => _isCompleted;
             set => SetProperty(ref _isCompleted, value);
@@ -67,11 +68,11 @@ namespace TaskApp.ViewModels
                 Id = Guid.NewGuid().ToString(),
                 Title = TaskTitle,
                 Description = TaskDescription,
-                DueDate = DueDate,
-                IsCompleted = IsCompleted,
+                DueDate = TaskDueDate,
+                IsCompleted = TaskIsCompleted,
             };
             
-            await DataStore.AddItemAsync(newItem);
+            await DataStore.AddTaskAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

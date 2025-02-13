@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskApp.Views.NewItemPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New Item"
+             Title="{Binding Title}"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
             <Label Text="Title" FontSize="Medium" />
-            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
+            <Entry Text="{Binding TaskTitle, Mode=TwoWay}" FontSize="Medium" />
             <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Editor Text="{Binding TaskDescription, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <Label Text="Due Date" FontSize="Medium" />
-            <DatePicker Date="{Binding DueDate, Mode=TwoWay}" />
+            <DatePicker Date="{Binding TaskDueDate, Mode=TwoWay}" />
             <Label Text="Completed" FontSize="Medium" />
-            <Switch IsToggled="{Binding IsCompleted, Mode=TwoWay}" Margin="0" />
+            <Switch IsToggled="{Binding TaskIsCompleted, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

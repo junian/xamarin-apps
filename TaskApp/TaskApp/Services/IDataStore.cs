@@ -6,11 +6,11 @@ namespace TaskApp.Services
 {
     public interface IDataStore<T>
     {
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
-        Task<bool> DeleteItemAsync(string id);
-        Task<T> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<bool> AddTaskAsync(T item);
+        Task<bool> UpdateTaskAsync(T item);
+        Task<bool> DeleteTaskAsync(string id);
+        Task<T> GetTaskAsync(string id);
+        Task<IEnumerable<T>> GetTaskListAsync(bool forceRefresh = false);
     }
 }
 

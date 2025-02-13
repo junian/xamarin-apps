@@ -13,7 +13,7 @@ namespace TaskApp
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<SQLiteDataStore>();
             MainPage = new AppShell();
         }
 

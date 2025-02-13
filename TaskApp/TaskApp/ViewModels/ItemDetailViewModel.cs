@@ -43,7 +43,7 @@ namespace TaskApp.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = await DataStore.GetTaskAsync(itemId);
                 Id = item.Id;
                 Text = item.Title;
                 Description = item.Description;
