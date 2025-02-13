@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskApp.iOS", "TaskApp\Task
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskApp", "TaskApp\TaskApp\TaskApp.csproj", "{D7F352C5-BFDC-43BE-A6DF-03CE427DA6CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskApp.Tests", "TaskApp.Tests\TaskApp.Tests.csproj", "{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{D7F352C5-BFDC-43BE-A6DF-03CE427DA6CA}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{D7F352C5-BFDC-43BE-A6DF-03CE427DA6CA}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{D7F352C5-BFDC-43BE-A6DF-03CE427DA6CA}.Release|iPhone.Build.0 = Release|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C0B8B198-FAD9-4EF1-BE04-BA7AFB159405}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
