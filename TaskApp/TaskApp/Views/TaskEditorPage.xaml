@@ -16,10 +16,12 @@
             <DatePicker Date="{Binding TaskDueDate, Mode=TwoWay}" />
             <Label Text="Completed" FontSize="Medium" />
             <Switch IsToggled="{Binding TaskIsCompleted, Mode=TwoWay}" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-            </StackLayout>
+
+            <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+            
+            <Label></Label>
+            <Button IsVisible="{Binding IsEditMode}" Text="Delete" BackgroundColor="Red" Command="{Binding DeleteCommand}" HorizontalOptions="FillAndExpand"></Button>
         </StackLayout>
     </ContentPage.Content>
     

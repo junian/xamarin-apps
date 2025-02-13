@@ -17,6 +17,7 @@ namespace TaskApp.ViewModels
             Title = "Add New Task";
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
+            DeleteCommand = new Command(OnDelete);
             this.PropertyChanged += 
                 (_, __) => SaveCommand.ChangeCanExecute();
         }
@@ -25,6 +26,13 @@ namespace TaskApp.ViewModels
         {
             return !String.IsNullOrWhiteSpace(_taskTitle)
                 && !String.IsNullOrWhiteSpace(_taskDescription);
+        }
+
+        private bool _isEditMode = false;
+        public bool IsEditMode
+        {
+            get => _isEditMode;
+            set => SetProperty(ref _isEditMode, value);
         }
 
         private string _taskId;
@@ -79,6 +87,7 @@ namespace TaskApp.ViewModels
                 TaskDescription = item.Description;
                 TaskDueDate = item.DueDate;
                 TaskIsCompleted = item.IsCompleted;
+                IsEditMode = !string.IsNullOrWhiteSpace(TaskId);
                 Title = "Edit Task";
             }
             catch (Exception)
@@ -89,6 +98,7 @@ namespace TaskApp.ViewModels
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
+        public Command DeleteCommand { get; }
 
         private async void OnCancel()
         {
@@ -98,23 +108,37 @@ namespace TaskApp.ViewModels
 
         private async void OnSave()
         {
-            var isEditMode = !string.IsNullOrWhiteSpace(TaskId);
-
             var taskItem = new TaskItem()
             {
-                Id = isEditMode ? TaskId : Guid.NewGuid().ToString(),
+                Id = IsEditMode ? TaskId : Guid.NewGuid().ToString(),
                 Title = TaskTitle,
                 Description = TaskDescription,
                 DueDate = TaskDueDate,
                 IsCompleted = TaskIsCompleted,
             };
 
-            if (isEditMode)
+            if (IsEditMode)
                 await DataStore.UpdateTaskAsync(taskItem);
             else
                 await DataStore.AddTaskAsync(taskItem);
 
             // This will pop the current page off the navigation stack
+            await Shell.Current.GoToAsync("..");
+        }
+
+        private async void OnDelete()
+        {
+            bool answer = await Xamarin.Forms.Application.Current.MainPage.DisplayAlert(
+                "Confirmation", // Title
+                "Are you sure you want to delete this task?", // Message
+                "Yes", // Accept button text
+                "No" // Cancel button text
+            );
+
+            if (!answer)
+                return;
+
+            await DataStore.DeleteTaskAsync(TaskId);
             await Shell.Current.GoToAsync("..");
         }
     }

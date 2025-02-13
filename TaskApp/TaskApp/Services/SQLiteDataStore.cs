@@ -57,7 +57,7 @@ namespace TaskApp.Services
             try
             {
                 // Find the task item by ID and delete it
-                var taskItem = await _database.Table<TaskItem>().FirstOrDefaultAsync(t => t.Id.ToString() == id);
+                var taskItem = await _database.Table<TaskItem>().FirstOrDefaultAsync(t => t.Id == id);
                 if (taskItem != null)
                 {
                     await _database.DeleteAsync(taskItem);
