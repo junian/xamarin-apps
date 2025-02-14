@@ -20,10 +20,10 @@ Submission:
     - [x] Title
     - [x] Description
     - [x] Due Date
-    - [ ] Completed status (Checkbox)
+    - [x] Completed status (Checkbox)
 - [x] Add/Edit Task Page. A form to add or edit a task with:
     - [x] Title (Required)
-    - [ ] Description (Optional)
+    - [x] Description (Optional)
     - [x] Due Date (DatePicker)
     - [x] Completed status (Switch)
 - [x] Data Storage

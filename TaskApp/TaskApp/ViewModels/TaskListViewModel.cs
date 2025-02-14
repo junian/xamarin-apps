@@ -18,6 +18,8 @@ namespace TaskApp.ViewModels
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get;  }
         public Command<TaskItem> ItemTapped { get; }
+        
+        public Command<TaskItem> ToggleCompleteCommand { get; }
 
         public TaskListViewModel()
         {
@@ -28,6 +30,7 @@ namespace TaskApp.ViewModels
             ItemTapped = new Command<TaskItem>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+            ToggleCompleteCommand = new Command<TaskItem>(async (task) => await ToggleComplete(task));
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -74,13 +77,17 @@ namespace TaskApp.ViewModels
             await Shell.Current.GoToAsync(nameof(TaskEditorPage));
         }
 
-        async void OnItemSelected(TaskItem item)
+        private async void OnItemSelected(TaskItem item)
         {
             if (item == null)
                 return;
-
-            // This will push the ItemDetailPage onto the navigation stack
+            
             await Shell.Current.GoToAsync($"{nameof(TaskEditorPage)}?{nameof(TaskEditorViewModel.TaskId)}={item.Id}");
+        }
+        
+        private async Task ToggleComplete(TaskItem task)
+        {
+            await DataStore.UpdateTaskAsync(task);
         }
     }
 }

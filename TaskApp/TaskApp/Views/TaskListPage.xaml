@@ -4,9 +4,14 @@
              x:Class="TaskApp.Views.TaskListPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:TaskApp.ViewModels"  
-             xmlns:model="clr-namespace:TaskApp.Models"  
+             xmlns:model="clr-namespace:TaskApp.Models"
+             xmlns:behaviors="clr-namespace:TaskApp.Behaviors;assembly=TaskApp"
              x:Name="taskListPage">
 
+    <ContentPage.BindingContext>
+        <local:TaskListViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
@@ -21,32 +26,36 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:TaskItem">
-                        <Label Text="{Binding Title}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                        <Label Text="{Binding Description}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Due Date: " 
-                                LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
-                            <DatePicker Date="{Binding DueDate}" 
-                                IsEnabled="False"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
+                    <StackLayout Padding="10" x:DataType="model:TaskItem" Orientation="Horizontal" HorizontalOptions="Fill">
+                        <CheckBox IsChecked="{Binding IsCompleted}" HorizontalOptions="Start">
+                            <CheckBox.Behaviors>
+                                <behaviors:EventToCommandBehavior 
+                                    Command="{Binding Source={x:Reference taskListPage}, Path=BindingContext.ToggleCompleteCommand}" 
+                                    CommandParameter="{Binding .}" />
+                            </CheckBox.Behaviors>
+                        </CheckBox>
+                        <StackLayout Padding="10" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding Title}" 
+                                   LineBreakMode="NoWrap" 
+                                   Style="{DynamicResource ListItemTextStyle}"
+                                   FontAttributes="Bold"
+                                   FontSize="16" />
+                            <Label Text="{Binding Description}" 
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="12" />
+                            <Label Text="{Binding DueDate, StringFormat='Due: {0:yyyy/MM/dd}'}" 
+                                   LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                   FontSize="10" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:TaskListViewModel}}, Path=ItemTapped}"		
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
                         </StackLayout>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:TaskListViewModel}}, Path=ItemTapped}"		
-                                CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

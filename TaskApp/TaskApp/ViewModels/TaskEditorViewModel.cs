@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows.Input;
 using TaskApp.Models;
 using Xamarin.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TaskApp.ViewModels
 {
@@ -18,14 +17,12 @@ namespace TaskApp.ViewModels
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             DeleteCommand = new Command(OnDelete);
-            this.PropertyChanged += 
-                (_, __) => SaveCommand.ChangeCanExecute();
+            this.PropertyChanged += (_, __) => SaveCommand.ChangeCanExecute();
         }
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(_taskTitle)
-                && !String.IsNullOrWhiteSpace(_taskDescription);
+            return !string.IsNullOrWhiteSpace(_taskTitle);
         }
 
         private bool _isEditMode = false;
@@ -38,10 +35,7 @@ namespace TaskApp.ViewModels
         private string _taskId;
         public string TaskId
         {
-            get
-            {
-                return _taskId;
-            }
+            get => _taskId;
             set
             {
                 _taskId = value;
@@ -63,7 +57,7 @@ namespace TaskApp.ViewModels
             set => SetProperty(ref _taskDescription, value);
         }
 
-        private DateTime? _dueDate = null;
+        private DateTime? _dueDate = DateTime.Today;
         public DateTime? TaskDueDate
         {
             get => _dueDate;
@@ -77,7 +71,7 @@ namespace TaskApp.ViewModels
             set => SetProperty(ref _isCompleted, value);
         }
 
-        public async void LoadTaskAsync(string taskId)
+        private async void LoadTaskAsync(string taskId)
         {
             try
             {
