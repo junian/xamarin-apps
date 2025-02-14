@@ -1,5 +1,9 @@
 # Xamarin Task Manager App
 
+## Demo
+
+https://github.com/user-attachments/assets/492fb9a9-d747-4ec8-8b52-976daf78bf06
+
 ## Brief
 
 - Develop a simple mobile application using Xamarin.Forms that allows users to view and manage a list of tasks. 
