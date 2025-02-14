@@ -13,45 +13,42 @@ namespace TaskApp.ViewModels
 {
     public class TaskListViewModel : BaseViewModel
     {
-        private TaskItem _selectedItem;
-
-        public ObservableCollection<TaskItem> Items { get; }
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get;  }
-        public Command<TaskItem> ItemTapped { get; }
-        
+        public ObservableCollection<TaskItem> TaskList { get; }
+        public Command LoadTaskListCommand { get; }
+        public Command AddTaskItemCommand { get;  }
+        public Command<TaskItem> TaskItemTapped { get; }
         public Command<TaskItem> ToggleCompleteCommand { get; }
 
         public TaskListViewModel()
         {
             Title = "Task Manager";
-            Items = new ObservableCollection<TaskItem>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            TaskList = new ObservableCollection<TaskItem>();
+            
+            LoadTaskListCommand = new Command(async () => await ExecuteLoadTaskListCommand());
 
-            ItemTapped = new Command<TaskItem>(OnItemSelected);
+            TaskItemTapped = new Command<TaskItem>(OnTaskItemSelected);
 
-            AddItemCommand = new Command(OnAddItem);
+            AddTaskItemCommand = new Command(OnAddTaskItem);
+            
             ToggleCompleteCommand = new Command<TaskItem>(async (task) => await ToggleComplete(task));
-            // Initialize filtered tasks with all tasks
-            FilteredTasks = new ObservableCollection<TaskItem>(Items);
-
-            // Command to filter tasks
+            
+            FilteredTasks = new ObservableCollection<TaskItem>(TaskList);
             FilterTasksCommand = new Command(FilterTasks);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        async Task ExecuteLoadTaskListCommand()
         {
             IsBusy = true;
 
             try
             {
-                Items.Clear();
+                TaskList.Clear();
                 var items = await DataStore.GetTaskListAsync(true);
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    TaskList.Add(item);
                 }
-                FilteredTasks = new ObservableCollection<TaskItem>(Items);
+                FilteredTasks = new ObservableCollection<TaskItem>(TaskList);
             }
             catch (Exception ex)
             {
@@ -66,25 +63,26 @@ namespace TaskApp.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-            SelectedItem = null;
+            SelectedTaskItem = null;
         }
 
-        public TaskItem SelectedItem
+        private TaskItem _selectedTaskItem;
+        public TaskItem SelectedTaskItem
         {
-            get => _selectedItem;
+            get => _selectedTaskItem;
             set
             {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
+                SetProperty(ref _selectedTaskItem, value);
+                OnTaskItemSelected(value);
             }
         }
 
-        private async void OnAddItem(object obj)
+        private async void OnAddTaskItem(object obj)
         {
             await Shell.Current.GoToAsync(nameof(TaskEditorPage));
         }
 
-        private async void OnItemSelected(TaskItem item)
+        private async void OnTaskItemSelected(TaskItem item)
         {
             if (item == null)
                 return;
@@ -122,12 +120,12 @@ namespace TaskApp.ViewModels
             if (string.IsNullOrWhiteSpace(SearchText))
             {
                 // If search text is empty, show all tasks
-                FilteredTasks = new ObservableCollection<TaskItem>(Items);
+                FilteredTasks = new ObservableCollection<TaskItem>(TaskList);
             }
             else
             {
                 // Filter tasks based on the search text
-                var filtered = Items
+                var filtered = TaskList
                     .Where(t => 
                         t.Title.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0 
                         || t.Description.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
