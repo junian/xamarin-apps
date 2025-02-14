@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using SQLite;
@@ -12,11 +13,16 @@ namespace TaskApp.Services
         private const string DbName = "TaskApp.db";
         private readonly SQLiteAsyncConnection _database;
 
-        public SQLiteDataStore()
+        private readonly string DefaultDBPath =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DbName);
+        
+        public SQLiteDataStore(string dbPath = null)
         {
             // Initialize the SQLite connection
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DbName);
-            _database = new SQLiteAsyncConnection(dbPath);
+            var selectedDBPath = string.IsNullOrWhiteSpace(dbPath)
+                ? DefaultDBPath
+                : dbPath;
+            _database = new SQLiteAsyncConnection(selectedDBPath);
 
             // Create the TaskItem table if it doesn't exist
             _database.CreateTableAsync<TaskItem>().Wait();
@@ -42,8 +48,8 @@ namespace TaskApp.Services
             try
             {
                 // Update the task item in the database
-                await _database.UpdateAsync(item);
-                return true;
+                var row = await _database.UpdateAsync(item);
+                return row > 0;
             }
             catch (Exception)
             {
