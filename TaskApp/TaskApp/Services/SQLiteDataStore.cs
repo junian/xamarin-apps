@@ -15,7 +15,11 @@ namespace TaskApp.Services
 
         private readonly string DefaultDBPath =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DbName);
-        
+
+        public SQLiteDataStore()
+            :this("")
+        {
+        }
         public SQLiteDataStore(string dbPath = null)
         {
             // Initialize the SQLite connection

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 
 using TaskApp.Models;
@@ -31,6 +32,11 @@ namespace TaskApp.ViewModels
 
             AddItemCommand = new Command(OnAddItem);
             ToggleCompleteCommand = new Command<TaskItem>(async (task) => await ToggleComplete(task));
+            // Initialize filtered tasks with all tasks
+            FilteredTasks = new ObservableCollection<TaskItem>(Items);
+
+            // Command to filter tasks
+            FilterTasksCommand = new Command(FilterTasks);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -45,6 +51,7 @@ namespace TaskApp.ViewModels
                 {
                     Items.Add(item);
                 }
+                FilteredTasks = new ObservableCollection<TaskItem>(Items);
             }
             catch (Exception ex)
             {
@@ -88,6 +95,45 @@ namespace TaskApp.ViewModels
         private async Task ToggleComplete(TaskItem task)
         {
             await DataStore.UpdateTaskAsync(task);
+        }
+
+        private ObservableCollection<TaskItem> _filteredTasks;
+        public ObservableCollection<TaskItem> FilteredTasks
+        {
+            get => _filteredTasks;
+            set => SetProperty(ref _filteredTasks, value);
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                SetProperty(ref _searchText, value);
+                FilterTasks(); // Filter tasks whenever the search text changes
+            }
+        }
+
+        public ICommand FilterTasksCommand { get; }
+
+        private void FilterTasks()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                // If search text is empty, show all tasks
+                FilteredTasks = new ObservableCollection<TaskItem>(Items);
+            }
+            else
+            {
+                // Filter tasks based on the search text
+                var filtered = Items
+                    .Where(t => 
+                        t.Title.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0 
+                        || t.Description.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+                FilteredTasks = new ObservableCollection<TaskItem>(filtered);
+            }
         }
     }
 }

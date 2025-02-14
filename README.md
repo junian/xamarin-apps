@@ -29,6 +29,6 @@ Submission:
 - [x] Data Storage
     - [x] Store tasks locally using SQLite or Preferences.
 - [x] Bonus (Optional)
-    - [ ] Implement search/filter for tasks.
+    - [x] Implement search/filter for tasks.
     - [x] Use Dependency Injection.
-    - [ ] Implement basic unit tests.
+    - [x] Implement basic unit tests.
