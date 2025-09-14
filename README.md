@@ -1,3 +1,3 @@
-# xamarin-custom-font
+# .NET Xamarin Apps
 
-Xamarin.Forms custom font demo project
+- [Xamarin Forms custom font demo project](./src/custom-font/)
