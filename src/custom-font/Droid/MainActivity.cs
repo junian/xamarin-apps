@@ -1,32 +1,33 @@
 ﻿using System;
 
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 namespace CustomFont.Droid
 {
-	[Activity(Label = "CustomFont.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
-	{
-		protected override void OnCreate(Bundle bundle)
-		{
-			TabLayoutResource = Resource.Layout.Tabbar;
-			ToolbarResource = Resource.Layout.Toolbar;
+    [Activity(Label = "CustomFont", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
 
-			base.OnCreate(bundle);
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-			global::Xamarin.Forms.Forms.Init(this, bundle);
+            FontManager.Current
+                .RegisterTypeFace("Fonts/Oswald/Oswald-Regular.ttf")
+                .RegisterTypeFace("Fonts/Pangolin/Pangolin-Regular.ttf");
 
-			FontManager.Current
-				.RegisterTypeFace("Fonts/Oswald/Oswald-Regular.ttf")
-				.RegisterTypeFace("Fonts/Pangolin/Pangolin-Regular.ttf");
-			
-			LoadApplication(new App());
-		}
-	}
+            LoadApplication(new App());
+        }
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 }
