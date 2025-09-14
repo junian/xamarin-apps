@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomFont.Android", "CustomFont\CustomFont.Android\CustomFont.Android.csproj", "{085867E6-B113-4BF7-964E-6E40B28AEA6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomFont.Android", "CustomFont.Android\CustomFont.Android.csproj", "{085867E6-B113-4BF7-964E-6E40B28AEA6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomFont.iOS", "CustomFont\CustomFont.iOS\CustomFont.iOS.csproj", "{504CAB49-9100-4132-BA4A-95D58101E10E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomFont.iOS", "CustomFont.iOS\CustomFont.iOS.csproj", "{504CAB49-9100-4132-BA4A-95D58101E10E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomFont", "CustomFont\CustomFont\CustomFont.csproj", "{30CFA043-6878-4AB5-B617-04F4AB56FA5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomFont", "CustomFont\CustomFont.csproj", "{30CFA043-6878-4AB5-B617-04F4AB56FA5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
