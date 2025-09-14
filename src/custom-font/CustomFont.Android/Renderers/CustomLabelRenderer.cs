@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Android.Content;
 using Android.Graphics;
 using CustomFont.Droid.Renderers;
 using Xamarin.Forms;
@@ -8,9 +9,13 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer(typeof(Label), typeof(CustomLabelRenderer))]
 namespace CustomFont.Droid.Renderers
 {
-	public class CustomLabelRenderer: LabelRenderer
+	public class CustomLabelRenderer : LabelRenderer
 	{
-		protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
+        public CustomLabelRenderer(Context context) : base(context)
+        {
+        }
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
 		{
 			base.OnElementChanged(e);
 

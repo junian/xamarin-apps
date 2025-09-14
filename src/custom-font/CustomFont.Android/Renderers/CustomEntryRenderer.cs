@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Android.Content;
 using Android.Graphics;
 using CustomFont.Droid.Renderers;
 using Xamarin.Forms;
@@ -8,9 +9,13 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer(typeof(Entry), typeof(CustomEntryRenderer))]
 namespace CustomFont.Droid.Renderers
 {
-	public class CustomEntryRenderer: EntryRenderer
+    public class CustomEntryRenderer : EntryRenderer
 	{
-		protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+        public CustomEntryRenderer(Context context) : base(context)
+        {
+        }
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
 		{
 			base.OnElementChanged(e);
 
