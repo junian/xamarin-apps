@@ -11,6 +11,7 @@ Xamarin Code samples
 ## Content
 
 - [Xamarin Forms custom font demo project](./src/custom-font/)
+- [To Do App](./src/todo-app/)
 
 ## LICENSE
 
