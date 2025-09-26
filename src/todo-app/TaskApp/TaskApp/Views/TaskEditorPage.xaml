@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskApp.Views.TaskEditorPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:viewModels="clr-namespace:TaskApp.ViewModels;assembly=TaskApp"
+             ios:Page.UseSafeArea="true">
+    
+    <ContentPage.BindingContext>
+        <viewModels:TaskEditorViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="15">
+            <Label Text="Title *" FontSize="Medium" />
+            <Entry Text="{Binding TaskTitle, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Description" FontSize="Medium" />
+            <Entry Text="{Binding TaskDescription, Mode=TwoWay}" FontSize="Medium" Margin="0" />
+            <Label Text="Due Date" FontSize="Medium" />
+            <DatePicker Date="{Binding TaskDueDate, Mode=TwoWay}" />
+            <Label></Label>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsEditMode}">
+                <Label Text="Completed" FontSize="Medium" />
+                <Switch IsToggled="{Binding TaskIsCompleted, Mode=TwoWay}" />
+            </StackLayout>
+            <Label></Label>
+            <Label Text="(*) Required" FontSize="Subtitle"></Label>
+            <Label></Label>
+            <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+            
+            <Label></Label>
+            <Button IsVisible="{Binding IsEditMode}" Text="Delete" BackgroundColor="Red" Command="{Binding DeleteCommand}" HorizontalOptions="FillAndExpand"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

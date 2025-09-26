@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskApp.Views.TaskListPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:TaskApp.ViewModels"  
+             xmlns:model="clr-namespace:TaskApp.Models"
+             xmlns:behaviors="clr-namespace:TaskApp.Behaviors;assembly=TaskApp"
+             x:Name="taskListPage">
+
+    <ContentPage.BindingContext>
+        <local:TaskListViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddTaskItemCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <StackLayout>
+        <SearchBar Placeholder="Search tasks..."
+                   Text="{Binding SearchText, Mode=TwoWay}" />
+        <RefreshView x:DataType="local:TaskListViewModel" Command="{Binding LoadTaskListCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="ItemsListView"
+                    ItemsSource="{Binding FilteredTasks}"
+                    SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="model:TaskItem" Orientation="Horizontal" HorizontalOptions="Fill">
+                            <CheckBox IsChecked="{Binding IsCompleted}" HorizontalOptions="Start">
+                                <CheckBox.Behaviors>
+                                    <behaviors:EventToCommandBehavior 
+                                        Command="{Binding Source={x:Reference taskListPage}, Path=BindingContext.ToggleCompleteCommand}" 
+                                        CommandParameter="{Binding .}" />
+                                </CheckBox.Behaviors>
+                            </CheckBox>
+                            <StackLayout Padding="10" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Title}" 
+                                       LineBreakMode="NoWrap" 
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       FontAttributes="Bold"
+                                       FontSize="16" />
+                                <Label Text="{Binding Description}" 
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="12" />
+                                <Label Text="{Binding DueDate, StringFormat='Due: {0:yyyy/MM/dd}'}" 
+                                       LineBreakMode="NoWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="10" />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:TaskListViewModel}}, Path=TaskItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+</ContentPage>
+
