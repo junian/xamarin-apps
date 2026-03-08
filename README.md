@@ -13,7 +13,32 @@ Xamarin Code samples
 - [Xamarin Forms custom font demo project](./src/custom-font/)
 - [To Do App](./src/todo-app/)
 
-## Troubleshooting
+## How to Build with Mac
+
+Requirements:
+
+- [Xcode][xcode]
+- Android SDK
+  
+  ```bash
+  brew install android-commandlinetools
+  ```
+
+- Mono MDK and Xamarin frameworks
+  
+  ```bash
+  brew tap junian/dotnet
+  brew install mono-mdk@6.12 xamarin-mac@9.3 xamarin-ios@16.4 xamarin-android@13.2
+  ```
+
+- IDE: You can use [JetBrains Rider][rider].
+- Alternative IDE: Visual Studio 2022 for Mac
+
+  ```bash
+  brew install junian/dotnet/visual-studio@2022
+  ```
+
+## Xamarin iOS Troubleshooting
 
 If you're experiencing build issue for Xamarin iOS with message like this:
 
@@ -22,10 +47,12 @@ dlopen(/Applications/Xcode.app/Contents/SharedFrameworks/IDEDistribution.framewo
   Referenced from: <6546882B-CA27-3A00-AF75-BFD972711FF8> /Applications/Xcode.app/Contents/SharedFrameworks/IDEDistribution.framework/Versions/A/IDEDistribution
   Reason: tried: '/usr/lib/swift/AppThinning.framework/Versions/A/AppThinning' (no such file, not in dyld cache), '/System/Volumes/Preboot/Cryptexes/OS/usr/lib/swift/AppThinning.framework/Versions/A/AppThinning' (no such file), '/Library/Frameworks/Xamarin.iOS.framework/Versions/16.4.0.23/lib/mlaunch/mlaunch.app/Contents/Frameworks/AppThinning.framework/Versions/A/AppThinning' (no such file), '/Applications/Xcode.app/Contents/SharedFrameworks/IDEDistribution.framework/Versions/A/Frameworks/AppThinning.framework/Versions/A/AppThinning' (no such file), '/Applications/Xcode.app/Contents/SharedFrameworks/IDEDistribution.framework/Versions/A/../../../../AppThinning.framework/Versions/A/AppThinning' (no such file), '/usr/lib/swift/AppThinning.framework/Versions/A/AppThinning' (no such file, not in dyld cache), '/System/Volumes/Preboot/Cryptexes/OS/usr/lib/swift/AppThinning.framework/Versions/A/AppThinning' (no such file), '/Library/Frameworks/Xamarin.iOS.framework/Versions/16.4.0.23/lib/mlaunch/mlaunch.app/Contents/Frameworks/AppThinning.framework/Versions/A/AppThinning' (no such file), '/Applications/Xcode.app/Contents/SharedFrameworks/IDEDistribution.framework/Versions/A/Frameworks/AppThinning.framework/Versions/A/AppThinning' (no such file), '/Applications/Xcode.app/Contents/SharedFrameworks/IDEDistribution.framework/Versions/A/../../../../AppThinning.framework/Versions/A/AppThinning' (no such file), '/Library/Frameworks/Xamarin.iOS.framework/Versions/16.4.0.23/lib/mlaunch/mlaunch.app/Contents/MonoBundle/AppThinning.framework/Versions/A/AppThinning' (no such file)
         
-Follow the [Xcode AppThinning guide][xamarin-app-thinning].
+Follow the [Link Xcode AppThinning to Xamarin iOS guide][xamarin-app-thinning].
 
 ## LICENSE
 
 [MIT](./LICENSE)
 
 [xamarin-app-thinning]: <https://www.junian.net/dev/xamarin-forms-ios-framework-idedistribution-issue/>
+[xcode]: <https://developer.apple.com/xcode/>
+[rider]: <https://www.jetbrains.com/rider/>
