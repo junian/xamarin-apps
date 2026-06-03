@@ -4,7 +4,7 @@
 
 # .NET Xamarin Apps
 
-Xamarin Code samples
+Xamarin and Xamarin.Forms Projects
 
 </div>
 
