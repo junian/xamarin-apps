@@ -8,10 +8,19 @@ Xamarin Code samples
 
 </div>
 
-## Content
+## What's Inside?
 
-- [Xamarin Forms custom font demo project](./src/custom-font/)
-- [To Do App](./src/todo-app/)
+- Xamarin.Forms Video Background Project
+  - [Source Code](./src/background-video/)
+  - [Full Guide](https://www.junian.dev/tech/xamarin-forms-video-background/) 
+- Xamarin.Forms Custom Font Project
+  - [Source Code](./src/custom-font/)
+  - [Full Guide](https://www.junian.dev/tech/xamarin-forms-android-custom-font/)
+- Xamarin.Forms Audio Player Project
+  - [Source Code](./src/audio-player/)
+  - [Full Guide](https://www.junian.dev/tech/xamarin-forms-play-audio/)
+- Xamarin.Forms Todo App
+  - [Source Code](./src/todo-app/)
 
 ## How to Build with Mac
 
