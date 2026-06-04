@@ -62,6 +62,6 @@ Follow the [Link Xcode AppThinning to Xamarin iOS guide][xamarin-app-thinning].
 
 [MIT](./LICENSE)
 
-[xamarin-app-thinning]: <https://www.junian.dev/dev/xamarin-forms-ios-framework-idedistribution-issue/>
+[xamarin-app-thinning]: <https://www.junian.dev/tech/xamarin-forms-ios-framework-idedistribution-issue/>
 [xcode]: <https://developer.apple.com/xcode/>
 [rider]: <https://www.jetbrains.com/rider/>
